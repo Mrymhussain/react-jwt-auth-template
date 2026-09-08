@@ -1,5 +1,5 @@
 // SignUpForm.jsx
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 
@@ -9,9 +9,12 @@ import { UserContext } from '../../contexts/UserContext';
 
 
 const SignUpForm = () => {
-  const user = UserContext
+  const { setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
+
   const [message, setMessage] = useState('');
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
