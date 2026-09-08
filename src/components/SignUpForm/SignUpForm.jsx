@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router';
 
 //Services 
 import { signUp } from '../../services/authService';
+import { UserContext } from '../../contexts/UserContext';
 
 
 const SignUpForm = () => {
+  const user = UserContext
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
