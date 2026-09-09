@@ -2,12 +2,18 @@ import { createContext, useState } from 'react';
 
 const UserContext = createContext();
 
-function getUseFromTaken(){
+function getUserFromToken() {
   const token = localStorage.getItem('token');
+
+  if (!token) {
+    return null;
+  }
+
+  return JSON.parse(atob(token.split('.')[1])).payload;
 }
 
 function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(getUserFromToken());
 
   const value = { user, setUser };
 
@@ -16,6 +22,6 @@ function UserProvider({ children }) {
       {children}
     </UserContext.Provider>
   );
-};
+}
 
 export { UserProvider, UserContext };

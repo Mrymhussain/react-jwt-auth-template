@@ -1,9 +1,7 @@
-// SignUpForm.jsx
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 
-//Services 
 import { signUp } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
 
