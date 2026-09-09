@@ -2,6 +2,10 @@ import { createContext, useState } from 'react';
 
 const UserContext = createContext();
 
+function getUseFromTaken(){
+  const token = localStorage.getItem('token');
+}
+
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 

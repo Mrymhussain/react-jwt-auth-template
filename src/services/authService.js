@@ -16,12 +16,44 @@ const signUp = async (formData) => {
 
     if (data.token) {
       localStorage.setItem('token', data.token);
-    
+
       const payload = data.token.split('.')[1];
-      //Convert the certialized into JSON
+
+      // Convert the serialized data into JSON
       const tokenJson = atob(payload);
-    //Take this JSON and convert it to JS 
-      return JSON.parse(tokenJson);
+
+      // Convert JSON into JS and return the user
+      return JSON.parse(tokenJson).payload;
+    }
+
+    throw new Error('Invalid response from server');
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
+const signIn = async (formData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/sign-in`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (data.err) {
+      throw new Error(data.err);
+    }
+
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+
+      const payload = data.token.split('.')[1];
+      const tokenJson = atob(payload);
+
+      return JSON.parse(tokenJson).payload;
     }
 
     throw new Error('Invalid response from server');
@@ -33,4 +65,5 @@ const signUp = async (formData) => {
 
 export {
   signUp,
+  signIn,
 };
